@@ -36,8 +36,8 @@ func main() {
 
 	router := mux.NewRouter().PathPrefix(pathPrefix).Subrouter()
 
-	router.HandleFunc("/todo", todoController.AddTodo).Methods(http.MethodPost)
-	router.HandleFunc("/todo", todoController.GetAll).Methods(http.MethodGet)
+	router.HandleFunc("/todos", todoController.AddTodo).Methods(http.MethodPost)
+	router.HandleFunc("/todos", todoController.GetAll).Methods(http.MethodGet)
 
 	fmt.Println("Server listening on port: ", port)
 	log.Fatal(http.ListenAndServe(addr, router))
