@@ -27,12 +27,10 @@ Retrieving todos for `tenant1`
 ```bash
 $ curl --request GET \
   --url http://localhost:8080/go-multitenancy/tenant1/todos
-$ 
 ```
 
 Retrieving todos for `tenant2`
 ```bash
 $ curl --request GET \
   --url http://localhost:8080/go-multitenancy/tenant2/todos
-$ 
 ```
