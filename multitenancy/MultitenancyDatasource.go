@@ -1,6 +1,7 @@
 package multitenancy
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -53,10 +54,16 @@ func createDatasource(tenant string) *sql.DB {
 	return ds
 }
 
-func GetDatasource(tenant string) *sql.DB {
+func GetDatasource(ctx context.Context) *sql.DB {
+	tenant := ctx.Value("tenant").(string)
+	if tenant == "" {
+		util.LogError(errors.New("tenant key not present in context"))
+	}
+
 	ds := datasources[tenant]
 	if ds == nil {
 		util.LogError(errors.New(fmt.Sprintf("Tenant not found [%s]", tenant)))
 	}
+
 	return ds
 }

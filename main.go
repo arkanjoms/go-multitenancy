@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/subosito/gotenv"
 	"go-multitenancy/controller"
+	"go-multitenancy/multitenancy"
 	"log"
 	"net/http"
 	"os"
@@ -35,6 +36,8 @@ func main() {
 	addr := fmt.Sprint(":", port)
 
 	router := mux.NewRouter().PathPrefix(pathPrefix).Subrouter()
+
+	router.Use(multitenancy.TenantResolver)
 
 	router.HandleFunc("/todos", todoController.AddTodo).Methods(http.MethodPost)
 	router.HandleFunc("/todos", todoController.GetAll).Methods(http.MethodGet)

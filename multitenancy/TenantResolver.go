@@ -1,12 +1,15 @@
 package multitenancy
 
 import (
-	"database/sql"
+	"context"
 	"github.com/gorilla/mux"
 	"net/http"
 )
 
-func TenantResolver(r *http.Request) *sql.DB {
-	tenant := mux.Vars(r)["tenant"]
-	return GetDatasource(tenant)
+func TenantResolver(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		tenant := mux.Vars(r)["tenant"]
+		ctx := context.WithValue(r.Context(), "tenant", tenant)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }
