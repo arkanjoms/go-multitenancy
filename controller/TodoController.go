@@ -3,7 +3,6 @@ package controller
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"go-multitenancy/model"
 	"go-multitenancy/repository"
 	"go-multitenancy/util"
@@ -32,7 +31,6 @@ func (t TodoController) AddTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (t TodoController) GetAll(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Context().Value("tenant"))
 	data, err := todoRepository.GetAll(r.Context(), todos)
 	util.SendResult(w, data, err)
 }
