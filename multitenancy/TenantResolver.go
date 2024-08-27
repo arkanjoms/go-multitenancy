@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func TenantResolver(next http.Handler) http.Handler {
+func TenantResolverMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tenant := mux.Vars(r)["tenant"]
 		ctx := context.WithValue(r.Context(), "tenant", tenant)

@@ -1,36 +1,35 @@
 # go-multitenancy
 
-Basic multitenancy example using go with Postgres.
+Basic multitenancy with multi database example using go and Postgres.
 
 ## Run app
 
 clone repository and exec command: 
 
 ```bash
-$ docker-compose -f docker/docker-compose.yml up -d --build
+docker compose -f docker/docker-compose.yml up -d --build
 ```
 
 ## running example
 
 Creating todo for `tenant1`
 ```bash
-$ curl --request POST \
+curl --request POST \
     --url http://localhost:8080/go-multitenancy/tenant1/todos \
     --header 'content-type: application/json' \
     --data '{
   	"description": "Todo 1"
   }'
-$ 
 ```
 
 Retrieving todos for `tenant1`
 ```bash
-$ curl --request GET \
+curl --request GET \
   --url http://localhost:8080/go-multitenancy/tenant1/todos
 ```
 
 Retrieving todos for `tenant2`
 ```bash
-$ curl --request GET \
+curl --request GET \
   --url http://localhost:8080/go-multitenancy/tenant2/todos
 ```

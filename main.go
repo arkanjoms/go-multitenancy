@@ -37,7 +37,7 @@ func main() {
 
 	router := mux.NewRouter().PathPrefix(pathPrefix).Subrouter()
 
-	router.Use(multitenancy.TenantResolver)
+	router.Use(multitenancy.TenantResolverMiddleware)
 
 	router.HandleFunc("/todos", todoController.AddTodo).Methods(http.MethodPost)
 	router.HandleFunc("/todos", todoController.GetAll).Methods(http.MethodGet)
